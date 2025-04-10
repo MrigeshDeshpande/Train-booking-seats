@@ -1,17 +1,15 @@
-
 .seat-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 10px;
-    justify-content: center;
-    margin: 0 auto;
-    max-width: 500px;
-  }
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 500px;
+}
 
-  .seat-row {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 12px;
-  }
-  
+.seat-row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 12px;
+}

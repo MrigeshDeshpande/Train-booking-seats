@@ -1,12 +1,10 @@
-import React from 'react'
-import './Seat.css'
+import React from "react";
+import "./Seat.css";
 
 const Seat = ({ number, status, isRecent }) => {
   return (
-    <div className={`seat ${status} ${isRecent ? 'recent' : ''}`}>
-      {number}
-    </div>
-  )
-}
+    <div className={`seat ${status} ${isRecent ? "recent" : ""}`}>{number}</div>
+  );
+};
 
-export default Seat
+export default Seat;
