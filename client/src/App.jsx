@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import api from "./api";
 import SeatGrid from "./components/SeatGrid";
+import Signup from "./pages/Signup"; 
+import Login from "./pages/Login";  
 import "./App.css";
 
-function App() {
+function BookingPage({ username }) {
   const [seats, setSeats] = useState([]);
   const [count, setCount] = useState(1);
   const [recentlyBooked, setRecentlyBooked] = useState([]);
-  const [username, _setUsername] = useState("jaadugar");
 
   const fetchSeats = async () => {
     const res = await api.get("/seats");
@@ -35,9 +37,7 @@ function App() {
   }, []);
 
   const bookedCount = seats.filter((seat) => seat.status === "booked").length;
-  const availableCount = seats.filter(
-    (seat) => seat.status === "available",
-  ).length;
+  const availableCount = seats.filter((seat) => seat.status === "available").length;
 
   return (
     <div className="app">
@@ -88,6 +88,18 @@ function App() {
         )}
       </div>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<BookingPage username=""/>} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </Router>
   );
 }
 
