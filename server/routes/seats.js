@@ -1,5 +1,6 @@
 import express from "express";
 import db from "../db.js";
+import authMiddleware from '../middleware/auth.js';
 
 /**
  
@@ -30,9 +31,10 @@ router.get("/", async (req, res) => {
 });
 
 // Book seats
-router.post("/book", async (req, res) => {
-  const { count, username } = req.body;
-
+router.post("/book", authMiddleware, async (req, res) => {
+  const { count } = req.body;
+  const username = req.user.username;
+  
   if (count < 1 || count > 7) {
     return res
       .status(400)
@@ -97,7 +99,7 @@ router.post("/book", async (req, res) => {
 });
 
 // Reset all seats
-router.post("/reset", async (req, res) => {
+router.post("/reset", authMiddleware, async (req, res) => {
   await db.query("UPDATE seats SET status = $1, username = NULL", [
     "available",
   ]);

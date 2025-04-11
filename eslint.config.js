@@ -5,8 +5,10 @@ import reactRefresh from "eslint-plugin-react-refresh";
 
 export default [
   { ignores: ["dist"] },
+
+  // Frontend (React) - client folder
   {
-    files: ["**/*.{js,jsx}"],
+    files: ["client/**/*.{js,jsx}"],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
@@ -28,6 +30,22 @@ export default [
         "warn",
         { allowConstantExport: true },
       ],
+    },
+  },
+
+  // Backend (Node.js) - server folder
+  {
+    files: ["server/**/*.{js,mjs}"],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.node,
+      parserOptions: {
+        ecmaVersion: "latest",
+        sourceType: "module",
+      },
+    },
+    rules: {
+      ...js.configs.recommended.rules,
     },
   },
 ];
