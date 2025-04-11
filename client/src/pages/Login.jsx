@@ -1,7 +1,7 @@
 import { useState } from "react";
 import api from "../api";
 import { useNavigate } from "react-router-dom";
-import "./Login.css"; 
+import "./Login.css";
 
 const Login = () => {
   const [form, setForm] = useState({ username: "", password: "" });
@@ -48,7 +48,9 @@ const Login = () => {
           className="input"
         />
         {error && <p className="error">{error}</p>}
-        <button type="submit" className="button">Login</button>
+        <button type="submit" className="button">
+          Login
+        </button>
       </form>
     </div>
   );

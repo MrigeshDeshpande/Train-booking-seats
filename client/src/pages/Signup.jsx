@@ -1,7 +1,7 @@
 import { useState } from "react";
 import api from "../api";
 import { useNavigate } from "react-router-dom";
-import "./Signup.css"; 
+import "./Signup.css";
 
 const Signup = () => {
   const [form, setForm] = useState({ username: "", password: "" });
@@ -18,7 +18,7 @@ const Signup = () => {
 
     try {
       await api.post("/auth/signup", form);
-      navigate("/login"); 
+      navigate("/login");
     } catch (err) {
       setError(err.response?.data?.error || "Signup failed");
     }
@@ -47,7 +47,9 @@ const Signup = () => {
           className="input"
         />
         {error && <p className="error">{error}</p>}
-        <button type="submit" className="button">Signup</button>
+        <button type="submit" className="button">
+          Signup
+        </button>
       </form>
     </div>
   );
