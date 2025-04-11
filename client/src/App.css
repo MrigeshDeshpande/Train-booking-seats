@@ -174,3 +174,20 @@ input[type="number"] {
 .reset-button:hover {
   background-color: #d32f2f;
 }
+.logout-floating {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.logout-floating:hover {
+  background-color: #c82333;
+}

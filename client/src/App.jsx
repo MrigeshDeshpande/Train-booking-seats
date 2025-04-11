@@ -57,12 +57,12 @@ function BookingPage() {
 
   const bookedCount = seats.filter((seat) => seat.status === "booked").length;
   const availableCount = seats.filter(
-    (seat) => seat.status === "available",
+    (seat) => seat.status === "available"
   ).length;
 
   return (
     <div className="app">
-      <h1 className="app-title">🚆 Train Seat Booking</h1>
+        <h1 className="app-title">🚆 Train Seat Booking</h1>
       <div className="controls">
         <div className="recently-booked-display">
           <span>
@@ -108,6 +108,16 @@ function BookingPage() {
           </div>
         )}
       </div>
+      <button
+        className="logout-floating"
+        onClick={() => {
+          localStorage.removeItem("token");
+          localStorage.removeItem("username");
+          navigate("/login");
+        }}
+      >
+        Logout
+      </button>
     </div>
   );
 }
