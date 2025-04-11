@@ -6,11 +6,11 @@ A full-stack train seat reservation system built using **React.js**, **Node.js (
 
 ## Tech Stack
 
-- **Frontend**: React.js  
-- **Backend**: Node.js + Express.js  
-- **Database**: PostgreSQL  
+- **Frontend**: React.js
+- **Backend**: Node.js + Express.js
+- **Database**: PostgreSQL
 
-##  Features
+## Features
 
 - User **Signup** and **Login** with secure authentication
 - Reserve up to **7 seats at a time**
@@ -25,11 +25,10 @@ A full-stack train seat reservation system built using **React.js**, **Node.js (
 
   ## 🎟️ Seat Booking Routes
 
-| Endpoint             | Method | Description                              |
-|----------------------|--------|------------------------------------------|
-| `/api/seats`         | GET    | Fetch all seats with current status      |
-| `/api/seats/book`    | POST   | Book `n` seats with seat selection logic |
-| `/api/seats/reset`   | POST   | Reset all seat statuses to available     |
-
+| Endpoint           | Method | Description                              |
+| ------------------ | ------ | ---------------------------------------- |
+| `/api/seats`       | GET    | Fetch all seats with current status      |
+| `/api/seats/book`  | POST   | Book `n` seats with seat selection logic |
+| `/api/seats/reset` | POST   | Reset all seat statuses to available     |
 
 ![image](https://github.com/user-attachments/assets/7f7354b1-5d40-4a1f-82d8-5e34ed239d15)
