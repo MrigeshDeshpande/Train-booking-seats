@@ -3,14 +3,14 @@ import cors from "cors";
 import db from "./db.js";
 import seatRoutes from "./routes/seats.js";
 import dotenv from "dotenv";
-import authRoutes from "./routes/auth.js"; 
+import authRoutes from "./routes/auth.js";
 dotenv.config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use("/api/auth", authRoutes);   
-app.use("/api/seats", seatRoutes); 
+app.use("/api/auth", authRoutes);
+app.use("/api/seats", seatRoutes);
 
 app.get("/", async (req, res) => {
   try {
