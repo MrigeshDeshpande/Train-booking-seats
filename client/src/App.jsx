@@ -1,19 +1,36 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import api from "./api";
 import SeatGrid from "./components/SeatGrid";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import "./App.css";
 
-function BookingPage({ username }) {
+function BookingPage() {
   const [seats, setSeats] = useState([]);
   const [count, setCount] = useState(1);
   const [recentlyBooked, setRecentlyBooked] = useState([]);
+  const [username, setUsername] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const user = localStorage.getItem("username");
+    if (!token) {
+      navigate("/login");
+    } else {
+      setUsername(user);
+      fetchSeats();
+    }
+  }, []);
 
   const fetchSeats = async () => {
-    const res = await api.get("/seats");
-    setSeats(res.data);
+    try {
+      const res = await api.get("/seats");
+      setSeats(res.data);
+    } catch (err) {
+      console.error("Failed to fetch seats", err);
+    }
   };
 
   const bookSeats = async () => {
@@ -31,10 +48,6 @@ function BookingPage({ username }) {
     setRecentlyBooked([]);
     fetchSeats();
   };
-
-  useEffect(() => {
-    fetchSeats();
-  }, []);
 
   const bookedCount = seats.filter((seat) => seat.status === "booked").length;
   const availableCount = seats.filter(
@@ -94,12 +107,17 @@ function BookingPage({ username }) {
 }
 
 function App() {
+  const token = localStorage.getItem("token");
+
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<BookingPage username="" />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route
+          path="/"
+          element={token ? <BookingPage /> : <Navigate to="/login" />}
+        />
       </Routes>
     </Router>
   );

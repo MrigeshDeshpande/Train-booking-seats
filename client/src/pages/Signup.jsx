@@ -17,8 +17,9 @@ const Signup = () => {
     setError("");
 
     try {
-      await api.post("/auth/signup", form);
-      navigate("/login");
+      const res = await api.post("/auth/signup", form);
+      localStorage.setItem("token", res.data.token);
+      navigate("/login"); 
     } catch (err) {
       setError(err.response?.data?.error || "Signup failed");
     }
