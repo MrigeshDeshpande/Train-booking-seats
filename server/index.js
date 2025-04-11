@@ -3,7 +3,6 @@ import cors from "cors";
 import db from "./db.js";
 import seatRoutes from "./routes/seats.js";
 
-
 const app = express();
 app.use(cors());
 app.use(express.json());
