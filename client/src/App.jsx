@@ -1,17 +1,42 @@
 import React, { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import api from "./api";
 import SeatGrid from "./components/SeatGrid";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
 import "./App.css";
 
-function App() {
+function BookingPage() {
   const [seats, setSeats] = useState([]);
   const [count, setCount] = useState(1);
   const [recentlyBooked, setRecentlyBooked] = useState([]);
-  const [username, _setUsername] = useState("jaadugar");
+  const [username, setUsername] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const user = localStorage.getItem("username");
+    if (!token) {
+      navigate("/login");
+    } else {
+      setUsername(user);
+      fetchSeats();
+    }
+  }, []);
 
   const fetchSeats = async () => {
-    const res = await api.get("/seats");
-    setSeats(res.data);
+    try {
+      const res = await api.get("/seats");
+      setSeats(res.data);
+    } catch (err) {
+      console.error("Failed to fetch seats", err);
+    }
   };
 
   const bookSeats = async () => {
@@ -30,18 +55,14 @@ function App() {
     fetchSeats();
   };
 
-  useEffect(() => {
-    fetchSeats();
-  }, []);
-
   const bookedCount = seats.filter((seat) => seat.status === "booked").length;
   const availableCount = seats.filter(
-    (seat) => seat.status === "available",
+    (seat) => seat.status === "available"
   ).length;
 
   return (
     <div className="app">
-      <h1 className="app-title">🚆 Train Seat Booking</h1>
+        <h1 className="app-title">🚆 Train Seat Booking</h1>
       <div className="controls">
         <div className="recently-booked-display">
           <span>
@@ -87,7 +108,34 @@ function App() {
           </div>
         )}
       </div>
+      <button
+        className="logout-floating"
+        onClick={() => {
+          localStorage.removeItem("token");
+          localStorage.removeItem("username");
+          navigate("/login");
+        }}
+      >
+        Logout
+      </button>
     </div>
+  );
+}
+
+function App() {
+  const token = localStorage.getItem("token");
+
+  return (
+    <Router>
+      <Routes>
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/"
+          element={token ? <BookingPage /> : <Navigate to="/login" />}
+        />
+      </Routes>
+    </Router>
   );
 }
 
